@@ -8,6 +8,10 @@
   <ItemGroup>
     <Compile Include="DataTypes.fs" />
     <Compile Include="WorldData.fs" />
+    <Compile Include="Parsing.fs" />
+    <Compile Include="GameStateUpdates.fs" />
+    <Compile Include="LogicHandlers.fs" />
+    <Compile Include="Display.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
