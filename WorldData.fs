@@ -108,3 +108,15 @@ Description= "Points East. A tattered parchment sealed with wax imprinted with t
 Inside, a single sentence is scrawled in ink made from sea king’s blood: “Inherit the dawn.” 
 The paper hums with the rhythm of the Void Century.";
 IsKeyPathItem= true; RiddleId= Some "end_east_riddle"}
+
+
+//---- DEFINING ALL RIDDLES ----
+let entranceRiddles =
+    Map.ofList [
+        ("western_tablet_riddle", { RiddleText = "I point the way but never stay, aging with each island's sway.
+        Cross my needle, brave the tide—without me, you’ll lose your guide. What am I?"; Solution = "map"; RewardItemId = weatheredLogPose.Id; CurrentState = NotSolved; 
+        SolvedMessage= "The tablet glows brightly! You've solved it."; RewardAppearsMessage = "A Weathered Log Pose materializes on a small pedestal beside the tablet."});
+        
+        ("eastern_tablet_riddle", { RiddleText = "I am always coming..."; Solution = "tomorrow"; RewardItemId = marinersAstrolabe.Id; CurrentState = NotSolved;
+        SolvedMessage= "The tablet glows brightly! You've solved it."; RewardAppearsMessage = "An astrolabe materializes on a small pedestal beside the tablet."})
+    ]
