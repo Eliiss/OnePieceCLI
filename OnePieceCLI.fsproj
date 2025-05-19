@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <Compile Include="DataTypes.fs" />
+    <Compile Include="WorldData.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

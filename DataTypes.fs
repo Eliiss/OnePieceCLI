@@ -8,7 +8,7 @@ type Item =
       Name: string         
       Description: string   
       IsKeyPathItem: bool 
-      RiddleId: string option // (Set of Riddle Identifiers ∪ {None})
+      RiddleId: string option // (Set of Riddle Identifiers UNION {None})
     }
 
 
