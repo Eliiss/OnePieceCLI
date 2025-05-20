@@ -227,3 +227,120 @@ let newRiddles =
         SolvedMessage= "The tablet reveals the hidden meaning of D., showing faces of all who carried the initial throughout history. Their smiles merge into a single determined grin";
         RewardAppearsMessage = "Wax melts and reforms, sealing a parchment that materializes in the air—the Will of D. Inheritance, marked with the Straw Hat insignia."})
     ]
+
+//---- DEFINING ALL LOCATIONS ----
+
+let entrance =
+    { Id = "entrance"
+      Name = "Reverse Mountain Foothills"
+      Description = "You stand at the base of Reverse Mountain, where the four seas collide. The colossal stone arch looms above, carved with ancient glyphs worn smooth by centuries of saltwater. 
+      The roar of the ascending currents drowns out all sound, a chaotic orchestra of waves crashing against the Red Line. 
+      To the north, icy winds carry the whispers of forgotten pirate crews; to the west, the salty tang of West Blue’s storms stings your lips. 
+      A lone albatross circles overhead, its cry echoing the question: “Are you ready to brave the Grand Line?"
+      UnavailableItems = Map.ofList [ (weatheredLogPose.Id, weatheredLogPose); (marinersAstrolabe.Id, marinersAstrolabe) ] // Start as unavailable
+      AvailableItems = Map.empty
+      NextLocation = Map.ofList [ (West, "west_blue"); (East, "east_blue") ]
+      Riddles = entranceRiddles 
+      NextLocationUnlockRequirements = Map.ofList [ (West, {RequiredItemId = Some weatheredLogPose.Id}); (East, {RequiredItemId = Some marinersAstrolabe.Id}) ]
+    }
+
+let west_blue =
+    { Id = "west_blue"
+      Name = "Ohara Library Ruins"
+      Description = "The skeletal remains of Ohara’s Library rise before you, their blackened stone pillars clawing at the sky like the fingers of the World Government’s wrath. 
+      Charred pages flutter in the breeze, fragments of a history the Marines tried to erase. Beneath your boots, the ground is littered with shattered Poneglyph replicas, their engravings blurred by ash. 
+      A faint glow pulses from the base of the Tree of Knowledge’s stump —a ghostly flame that never dies. 
+      The air smells of burnt parchment and regret."
+      UnavailableItems = Map.ofList [ (sakuraSeedPouch.Id, sakuraSeedPouch); (ethernalPoseThrillerBark.Id, ethernalPoseThrillerBark) ]
+      AvailableItems = Map.empty
+      NextLocation = Map.ofList [ (West, "thriller_bark"); (East, "kano_country") ]
+      Riddles = westBlueRiddles 
+      NextLocationUnlockRequirements = Map.ofList [ (West, {RequiredItemId = Some sakuraSeedPouch.Id}); (East, {RequiredItemId = Some ethernalPoseThrillerBark.Id}) ]
+    }
+
+let east_blue =
+    { Id = "east_blue"
+      Name = "Bartie Floating Restaurant"
+      Description = "The Bartie Floating Restaurant sways gently on the waves, its hull patched with mismatched wood and pride. 
+      The scent of seared sea king meat and Sanji’s infamous “Love-Cooked” stew wafts through the air. 
+      Pirates and fishermen shout over clinking mugs, their laughter punctuated by the occasional splash of a sous chef gutting fish. 
+      To the east, the horizon glows with the promise of Dawn Island. A chalkboard menu reads: “Today’s Special: Adventure, served with a side of danger."
+      UnavailableItems = Map.ofList [ (sanjiSecretSpice.Id, sanjiSecretSpice); (loguetownFerryTicket.Id, loguetownFerryTicket) ] 
+      AvailableItems = Map.empty
+      NextLocation = Map.ofList [ (West, "arlong_park"); (East, "logue_town") ]
+      Riddles = eastBlueRiddles 
+      NextLocationUnlockRequirements = Map.ofList [ (West, {RequiredItemId = Some sanjiSecretSpice.Id}); (East, {RequiredItemId = Some loguetownFerryTicket.Id}) ]
+    }
+
+let thriller_bark =
+    { Id = "thriller_bark"
+      Name = "Persona's Garden of Horrors"
+      Description = "A wall of fog parts to reveal Thriller Bark, a rotting galleon the size of a city, its mast piercing the moonlit sky. 
+      Shadows of zombies shuffle in the distance, their moans harmonizing with the creak of the ship’s cursed timbers. 
+      The ground squelches beneath your feet, a mix of swamp mud and… something worse. Jack-o’-lanterns leer from skeletal trees, their flames flickering green. 
+      Somewhere deep in the mist, a deep voice chuckles: “Kishishishi…* Welcome to my playground."
+      UnavailableItems = Map.ofList [ (brookViolinBow.Id, brookViolinBow); (geckoMoriaShadowSnips.Id, geckoMoriaShadowSnips) ] 
+      AvailableItems = Map.empty
+      NextLocation = Map.ofList [ (West, "west_blue"); (East, "new_world") ]
+      Riddles = thrillerBarkRiddles 
+      NextLocationUnlockRequirements = Map.ofList [ (West, {RequiredItemId = Some geckoMoriaShadowSnips.Id}); (East, {RequiredItemId = Some brookViolinBow.Id}) ]
+    }
+
+let kano_country =
+    { Id = "kano_country"
+      Name = "Wano’s Flower Capital Outskirts"
+      Description = "Cherry blossoms rain down as you step into the shadow of Wano’s Flower Capital. 
+      The opulent rooftops of the city gleam in the distance, but here, the outskirts are a patchwork of rice paddies and crumbling samurai graves. 
+      A rusted katana lies half-buried in the soil, its hilt wrapped in a fading hachimaki. 
+      The wind carries the clang of swords from Kaido’s fortress and the faint hum of a shamisen. 
+      A weathered sign warns: “Beware the Kurozumi’s curse."
+      UnavailableItems = Map.ofList [ (ryumaShusuiCloth.Id, ryumaShusuiCloth); (seastoneHandcuffKey.Id, seastoneHandcuffKey) ] 
+      AvailableItems = Map.empty
+      NextLocation = Map.ofList [ (West, "west_blue"); (East, "new_world") ]
+      Riddles = kanoRiddles 
+      NextLocationUnlockRequirements = Map.ofList [ (West, {RequiredItemId = Some seastoneHandcuffKey.Id}); (East, {RequiredItemId = Some ryumaShusuiCloth.Id}) ]
+    }
+
+let arlong_park =
+    { Id = "arlong_park"
+      Name = "Nami’s Chart Room"
+      Description = "Arlong Park’s jagged coral towers rise from the shallows like the ribs of a drowned leviathan. 
+      Saltwater canals cut through the ruins, their surfaces choked with seaweed and shattered dream charts. 
+      In Nami’s hidden Chart Room, parchment maps plaster every wall—each one meticulously detailed, each stained with tear-smudged ink. 
+      A rusted sextant sits on a desk, its needle still pointing to Cocoyasi Village. 
+      The air tastes of salt and swallowed rage."
+      UnavailableItems = Map.ofList [ (completeGrandLineChart.Id, completeGrandLineChart); (climaTactPrototype.Id, climaTactPrototype) ] 
+      AvailableItems = Map.empty
+      NextLocation = Map.ofList [ (West, "new_world"); (East, "east_blue") ]
+      Riddles = arlongRiddles 
+      NextLocationUnlockRequirements = Map.ofList [ (West, {RequiredItemId = Some completeGrandLineChart.Id}); (East, {RequiredItemId = Some climaTactPrototype.Id}) ]
+    }
+
+let logue_town =
+    { Id = "logue_town"
+      Name = "Gol D. Roger’s execution Platform"
+      Description = "The wooden gallows of Roger’s execution platform dominate LogueTown’s square, its ropes frayed but still swinging in the stormy breeze. 
+      Vendors hawk “Pirate King” souvenirs nearby, their voices drowned out by the crash of waves against the harbor. 
+      The scent of gunpowder lingers—remnants of Buggy’s last fireworks display. 
+      A cracked cobblestone bears Roger’s final grin, preserved in bronze. Above, storm clouds swirl as if the sky itself debates your destiny."
+      UnavailableItems = Map.ofList [ (rogerLastWordsEchoShell.Id, rogerLastWordsEchoShell); (smokerJitteTip.Id, smokerJitteTip) ] 
+      AvailableItems = Map.empty
+      NextLocation = Map.ofList [ (West, "new_world"); (East, "east_blue") ]
+      Riddles = logueRiddles 
+      NextLocationUnlockRequirements = Map.ofList [ (West, {RequiredItemId = Some rogerLastWordsEchoShell.Id}); (East, {RequiredItemId = Some smokerJitteTip.Id}) ]
+    }
+
+let new_world =
+    { Id = "new_world"
+      Name = "Gol D. Roger’s execution Platform"
+      Description = "Rafael’s Shore is a graveyard of ambition. 
+      The black sand burns underfoot, littered with the splintered hulls of ships that dared challenge the New World. 
+      Whirlpools churn on the horizon, their depths glowing with bioluminescent predators. 
+      A lone Road Poneglyph juts from the surf, its red glyphs humming with the weight of the Void Century. 
+      The air crackles with static—a warning from the heavens. Somewhere beyond the tempest, Laughtale laughs."
+      UnavailableItems = Map.ofList [ (ancientTranslationKey.Id, ancientTranslationKey); (willOfDInheritance.Id, willOfDInheritance) ] 
+      AvailableItems = Map.empty
+      NextLocation = Map.ofList [ (West, "new_world"); (East, "new_world") ]
+      Riddles = logueRiddles 
+      NextLocationUnlockRequirements = Map.ofList [ (West, {RequiredItemId = Some ancientTranslationKey.Id}); (East, {RequiredItemId = Some willOfDInheritance.Id}) ]
+    }
