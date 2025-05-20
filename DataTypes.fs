@@ -8,6 +8,7 @@ type Item = //record
       Description: string   // shown only after riddle solved
       IsKeyPathItem: bool 
       RiddleId: string option // (Set of Riddle Identifiers UNION {None})
+      OriginLocation: string option // will be used for is iskeypathitem constrain in each level 
     }
 
 
