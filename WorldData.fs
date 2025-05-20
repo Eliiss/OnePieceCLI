@@ -54,14 +54,14 @@ let geckoMoriaShadowSnips = { Id= "shadow_west"; Name="Gecko Moria's Shadow Snip
 Description="Points West. Rusted shears with jagged blades, still stained with ink-black shadow residue. 
 The handles are wrapped in Thriller Bark’s burial shrouds. 
 When clinked together, they whisper Oz’s name in a hollow groan."; 
-IsKeyPathItem=false; RiddleId=Some "back_west_thriller_riddle" ; OriginLocation = Some "thriller_bark" } 
+IsKeyPathItem=true; RiddleId=Some "back_west_thriller_riddle" ; OriginLocation = Some "thriller_bark" } 
 
 //Kano Country items
 let seastoneHandcuffKey = { Id= "handcuff_key_west"; Name= "Seastone Hand cuffKey"; 
 Description= "Points West. A hexagonal key forged from Wano’s rarest seastone, cold as the ocean floor. 
 The teeth are shaped like Kaido’s scales, and the loop bears Kozuki Oden’s crest. 
 When gripped, it weakens even the strongest Devil Fruit user.";
-IsKeyPathItem= false; RiddleId= Some "back_west_kano_riddle" ; OriginLocation = Some "kano_country"}
+IsKeyPathItem= true; RiddleId= Some "back_west_kano_riddle" ; OriginLocation = Some "kano_country"}
 
 let ryumaShusuiCloth = { Id= "cloth_east"; Name="Ryuma Shusui's Cloth"; 
 Description="Points East. A black cloth embroidered with Wano’s crescent moon. 
@@ -80,7 +80,7 @@ let climaTactPrototype = { Id= "clima_prototype_east"; Name="Clima Tact Prototyp
 Description="Points East. A clunky brass staff with dials labeled “Mirage Tempo” and “Thunderbolt.” 
 Sparks crackle from its joints, smelling of ozone and tangerine peel. 
 A sticky note reads: “Usopp’s Version 1.0—handle with care.”"; 
-IsKeyPathItem=false; RiddleId=Some "back_east_arlong_riddle" ; OriginLocation = Some "arlong_park" } 
+IsKeyPathItem=true; RiddleId=Some "back_east_arlong_riddle" ; OriginLocation = Some "arlong_park" } 
 
 //Logue Town items
 let rogerLastWordsEchoShell = { Id= "echo_shell_west"; Name= "Roger Last Words EchoShell"; 
@@ -94,7 +94,7 @@ let smokerJitteTip = { Id= "smoke_jitte_east"; Name="Smoker Jitte Tip";
 Description="Points East. A seastone-tipped jitte, still smoldering from Smoker’s cigar burns. 
 The shaft is engraved with Marine slogans, but the tip bears a tiny scratch—a memento of Luffy’s first escape. 
 It hums with the energy of Loguetown’s storm."; 
-IsKeyPathItem=false; RiddleId=Some "back_east_logue_riddle" ; OriginLocation = Some "logue_town"}
+IsKeyPathItem=true; RiddleId=Some "back_east_logue_riddle" ; OriginLocation = Some "logue_town"}
 
 //New World items 
 let ancientTranslationKey = { Id= "translation_key_west"; Name= "Ancient Translation Key"; 
