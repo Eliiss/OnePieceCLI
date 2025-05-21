@@ -109,6 +109,17 @@ Inside, a single sentence is scrawled in ink made from sea king’s blood: “In
 The paper hums with the rhythm of the Void Century.";
 IsKeyPathItem= true; RiddleId= Some "end_east_riddle" ; OriginLocation = Some "new_world"}
 
+let allItemsList =
+    [ weatheredLogPose; marinersAstrolabe; sakuraSeedPouch; ethernalPoseThrillerBark; sanjiSecretSpice; 
+    loguetownFerryTicket; brookViolinBow; geckoMoriaShadowSnips; seastoneHandcuffKey; ryumaShusuiCloth; 
+    completeGrandLineChart; climaTactPrototype; rogerLastWordsEchoShell; smokerJitteTip; ancientTranslationKey; 
+    willOfDInheritance ]
+
+let allItemsMap : Map<string, Item> =
+    allItemsList
+    |> List.map (fun item -> (item.Id, item))
+    |> Map.ofList
+
 
 //---- DEFINING ALL RIDDLES ----
 let entranceRiddles =
