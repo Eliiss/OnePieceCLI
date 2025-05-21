@@ -1,6 +1,6 @@
 ﻿module DataTypes
 
-type Direction = North | East | West // discriminated union (DU)
+type Direction = East | West // discriminated union (DU)
 
 type Item = //record
     { Id: string          
@@ -43,7 +43,7 @@ type Player = // record
       Inventory: list<Item>
     }
 
-type Command = //DU
+type Command = //DU that respresents all possible outcomes of the player´s input
 | Go of Direction
 | Look
 | Examine of target:string
@@ -54,6 +54,7 @@ type Command = //DU
 | CheckInventory
 | Help
 | Quit
+| InvalidCommand of originalInput:string
 
 type GameState = // record 
     { Locations: Map<string, Location>  
