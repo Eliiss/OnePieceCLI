@@ -67,6 +67,7 @@ type ErrorType = // DU
     | InvalidUserCommand of originalInput: string // parser can't make sense of input
     | TargetNotFound of targetName: string       // if item isn't in location/inventory
     | ItemNotTakeable of itemName: string         // try to take an item flagged as not takeable
+    | ItemNotFound of itemName: string
     | ItemNotInInventory of itemName: string      // if player doesn't have it in their inventory
     | CannotCarryMoreKeyPathItems               // one key path - only carry one item of each location
     | ExitIsBlocked of reason: string             // if riddle not solved 
