@@ -40,7 +40,7 @@ let markRiddleAsSolved (riddleId: string) (loc: Location) : Location =
     match Map.tryFind riddleId loc.Riddles with
     | Some riddle ->
         let solvedRiddle = { riddle with CurrentState = Solved }
-        { loc with Riddles = Map.add riddleId solvedRiddle loc.Riddles } // updates a riddle to Solved within a location
+        { loc with Riddles = Map.add riddleId solvedRiddle loc.Riddles } // updates a riddle to solved within a location
     | None -> loc // riddle not found, unchanged
 
 let addItemToLocation (item: Item) (loc: Location) : Location =

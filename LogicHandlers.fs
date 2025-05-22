@@ -110,7 +110,7 @@ let handleLook (gs:GameState): Result<GameState, ErrorType> =
                 sprintf "You notice: %s." (String.concat ", " examinableRiddleObjects)
               else ""
               sprintf "Exits are to the: %s." (String.concat ", " nexLocationDirections)
-            ] |> List.filter (fun s -> not (String.IsNullOrWhiteSpace s)) // Remove empty strings
+            ] |> List.filter (fun s -> not (String.IsNullOrWhiteSpace s))
         Ok (addMessages messages gs)
     | Error e -> Error e 
 
@@ -150,13 +150,13 @@ let handleTake (itemName: string) (gs: GameState): Result<GameState, ErrorType> 
                     let finalGs = updateLocation locWithItemRemoved gsWithItemInInv
                     Ok (addMessage (sprintf "You take the %s." itemToTake.Name) finalGs)
                 else
-                    // Error message depends on why proceedWithTake is false
-                    if itemToTake.IsKeyPathItem && itemToTake.OriginLocation.IsSome then
-                        let originLocName = (Map.find itemToTake.OriginLocation.Value gs.Locations).Name
-                        Error CannotCarryMoreKeyPathItems
-                    else if itemToTake.IsKeyPathItem && itemToTake.OriginLocation.IsNone then
-                         Error (InternalLogicError (sprintf "KeyPathItem %s missing Originating Location Id" itemToTake.Name))
-                    else // Should not be reached if logic is correct
+                    if itemToTake.IsKeyPathItem then
+                        match itemToTake.OriginLocation with
+                        | Some itemOriginLocId ->
+                            Error (CannotCarryMoreKeyPathItems itemOriginLocId)
+                        | None ->
+                            Error (InternalLogicError (sprintf "KeyPathItem %s missing Originating Location Id" itemToTake.Name))
+                    else // Should not be reached
                         Error (ItemNotTakeable itemToTake.Name)
             | None -> Error (ItemNotFound itemName)
         | Error e -> Error e
@@ -220,7 +220,7 @@ let handleGo (direction: Direction) (gs: GameState) : Result<GameState, ErrorTyp
                                 | None -> "specific item") // Fallback name
                             direction))
                 | None ->
-                    // there's an ExitRequirement entry, it's blocked by a condition such as a riddle in the loc
+                    // there's an requirement entry: blocked by a riddle in the loc
                     let gsWithNewLoc = updatePlayerLocation nextLocationId gs
                     match handleLook gsWithNewLoc with
                     | Ok lookedGs -> Ok lookedGs

@@ -69,7 +69,7 @@ type ErrorType = // DU
     | ItemNotTakeable of itemName: string         // try to take an item flagged as not takeable
     | ItemNotFound of itemName: string
     | ItemNotInInventory of itemName: string      // if player doesn't have it in their inventory
-    | CannotCarryMoreKeyPathItems               // one key path - only carry one item of each location
+    | CannotCarryMoreKeyPathItems of locationId: string            // one key path - only carry one item of each location
     | ExitIsBlocked of reason: string             // if riddle not solved 
     | RiddleAlreadySolved of riddleTargetId: string
     | RiddleNotFound of riddleTargetId: string
