@@ -408,7 +408,7 @@ let initialGameWorld : Map<string, Location> =
         (new_world.Id, new_world) 
     ]
 
-let initialPlayer : Player = { CurrentLocationId = entrance.Id; Inventory = [] }
+let initialPlayer : Player = { CurrentLocationId = entrance.Id; Inventory = Set.empty }
 
 let initialGameState : GameState =
     { Locations = initialGameWorld

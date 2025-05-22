@@ -40,7 +40,7 @@ type Location = //record
 
 type Player = // record
     { CurrentLocationId: string
-      Inventory: list<Item>
+      Inventory: Set<Item>
     }
 
 type Command = //DU that respresents all possible outcomes of the player´s input
