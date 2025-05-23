@@ -1,17 +1,15 @@
 ﻿module Program
 
-open System // For Console.ReadLine, Console.Clear (optional)
+open System // For Console.ReadLine, Console.Clear 
 open DataTypes
-open WorldData // Contains initialGameState
+open WorldData 
 open Parsing
 open LogicHandlers
-open GameStateUpdates // For addMessage, clearMessages etc. if not directly in Program
-open Display // For formatting functions
+open GameStateUpdates 
+open Display 
 
-// Clears the console (optional, for a cleaner look each turn)
 let private clearConsole() =
-    // This works on Windows, macOS, Linux if terminal supports ANSI escape codes
-    // For a simpler cross-platform approach without special chars, just print many new lines.
+
     if System.Environment.OSVersion.Platform = PlatformID.Win32NT then
         System.Console.Clear()
     else
@@ -19,31 +17,25 @@ let private clearConsole() =
 
 // Main recursive game loop
 let rec gameLoop (currentState: GameState) : unit =
-    clearConsole() // Optional: Clears screen each turn
+    clearConsole() 
 
-    // 1. Display accumulated messages from the previous turn
     let gsAfterMessagesDisplayed, _ = displayAndClearPendingMessages currentState
 
-    // 2. Display current location information (if not game over)
     if not gsAfterMessagesDisplayed.IsGameOver then
         let locationInfoLines = getLocationDisplayInfo gsAfterMessagesDisplayed
         locationInfoLines |> List.iter (printfn "%s")
         printfn "--------------------" // Separator
 
-    // 3. Check if game is over
     if gsAfterMessagesDisplayed.IsGameOver then
         printfn "\nGame Over. Thank you for playing!"
-        // gsAfterMessagesDisplayed.MessagesToDisplay will likely contain the "Goodbye" message from handleQuit
-        // We already printed messages above.
+
     else
         // 4. Get player input
         printf "\n> " // Prompt
         let userInput = Console.ReadLine()
 
-        // 5. Parse input
         let command = Parsing.parsePlayerInput userInput
 
-        // 6. Process command using LogicHandlers
         let resultOfAction =
             match command with
             | Look -> LogicHandlers.handleLook gsAfterMessagesDisplayed
@@ -58,12 +50,11 @@ let rec gameLoop (currentState: GameState) : unit =
             | Quit -> LogicHandlers.handleQuit gsAfterMessagesDisplayed
             | InvalidCommand originalInput ->
                 let msg = sprintf "I don't understand '%s'. Type 'help' for available commands." originalInput
-                Ok (GameStateUpdates.addMessage msg gsAfterMessagesDisplayed) // Return Ok with the message added
+                Ok (GameStateUpdates.addMessage msg gsAfterMessagesDisplayed) 
 
-        // 7. Handle the result (Ok with new state, or Error with error type)
         match resultOfAction with
         | Ok newGameState ->
-            gameLoop newGameState // Recurse with the new state
+            gameLoop newGameState 
         | Error errorType ->
             let errorMsgString = // Convert ErrorType to a user-friendly string
                 match errorType with
@@ -90,5 +81,5 @@ let main argv =
     printfn "--- Welcome to the One Piece Text Adventure! ---"
     // initialGameState is defined in WorldData.fs and opened
     gameLoop WorldData.initialGameState
-    0 // Return an integer exit code
+    0 
  
