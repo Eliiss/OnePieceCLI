@@ -51,10 +51,10 @@ let getLocationDisplayInfo (gs: GameState) : list<string> =
         [ "ERROR: You are lost in an unknown seas!" ]
 
 let formatPlayerInventory (gs: GameState) : string =
-    if List.isEmpty gs.Player.Inventory then
+    if Set.isEmpty gs.Player.Inventory then
         "Your inventory is empty."
     else
-        let itemsStr = gs.Player.Inventory |> List.map (fun item -> item.Name) |> String.concat ", "
+        let itemsStr = gs.Player.Inventory |> Set.map (fun item -> item.Name) |> String.concat ", "
         sprintf "You are carrying: %s." itemsStr
 
 //printing all messages accumulated in GameState.MessagesToDisplay

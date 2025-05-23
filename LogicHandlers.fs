@@ -13,7 +13,7 @@ let private getCurrentLocation (gs: GameState) : Result<Location, ErrorType> =
 
 
 // HELP command
-let handleHelp (gs: GameState) : Result<GameState, ErrorType> = // error handling
+let handleHelp (gs: GameState) : Result<GameState, ErrorType> =
     let helpText = """
         Available commands:
         - look (l): Look around your current location
@@ -31,12 +31,12 @@ let handleHelp (gs: GameState) : Result<GameState, ErrorType> = // error handlin
 
 // INVENTORY command
 let handleInventory (gs: GameState) : Result<GameState, ErrorType> =
-    if List.isEmpty gs.Player.Inventory then
+    if Set.isEmpty gs.Player.Inventory then
         Ok (addMessage "Your inventory is empty." gs)
     else
         let itemsList = 
             gs.Player.Inventory 
-            |> List.map (fun item -> item.Name) // fun creates an anonym function aka lambda expression
+            |> Set.map (fun item -> item.Name) // fun creates an anonym function aka lambda expression
             |> String.concat ", "
         
         Ok (addMessage(sprintf "You are carrying: %s" itemsList) gs)
@@ -119,7 +119,7 @@ let handleDrop (itemName: string) (gs: GameState) : Result<GameState, ErrorType>
     match getCurrentLocation gs with
     | Ok currentLoc ->
         let normalizedItemName = itemName.Trim().ToLower()
-        match gs.Player.Inventory |> List.tryFind (fun item -> item.Name.ToLower() = normalizedItemName) with
+        match gs.Player.Inventory |> Seq.tryFind (fun item -> item.Name.ToLower() = normalizedItemName) with
         | Some itemToDrop ->
             let gsWithItemRemovedFromInv = deleteItemInventory itemToDrop.Id gs
             let locWithItemAdded = addItemToLocation itemToDrop currentLoc // add to current location's available items 
@@ -140,7 +140,7 @@ let handleTake (itemName: string) (gs: GameState): Result<GameState, ErrorType> 
                     if itemToTake.IsKeyPathItem then
                         match itemToTake.OriginLocation with
                         | Some itemOriginLocId ->
-                            not (gs.Player.Inventory |> List.exists (fun invItem -> invItem.IsKeyPathItem && invItem.OriginLocation = Some itemOriginLocId))
+                            not (gs.Player.Inventory |> Set.exists (fun invItem -> invItem.IsKeyPathItem && invItem.OriginLocation = Some itemOriginLocId))
                         | None -> false 
                     else true // Not a key path item, can always take if available
 
@@ -166,7 +166,7 @@ let handleUse (itemName: string) (gs: GameState) : Result<GameState, ErrorType> 
     match getCurrentLocation gs with
     | Ok currentLoc ->
         let normalizedItemName = itemName.Trim().ToLower()        
-        match gs.Player.Inventory |> List.tryFind (fun item -> item.Name.ToLower() = normalizedItemName) with
+        match gs.Player.Inventory |> Seq.tryFind (fun item -> item.Name.ToLower() = normalizedItemName) with
         | Some itemToUse -> //check if this item is required for any exit in the current location
             let isKeyForExit = 
                 currentLoc.NextLocationUnlockRequirements
@@ -204,7 +204,7 @@ let handleGo (direction: Direction) (gs: GameState) : Result<GameState, ErrorTyp
             | Some requirement ->
                 match requirement.RequiredItemId with
                 | Some requiredItemId ->
-                    if gs.Player.Inventory |> List.exists (fun item -> item.Id = requiredItemId) then
+                    if gs.Player.Inventory |> Set.exists (fun item -> item.Id = requiredItemId) then
                         let nextGs = updatePlayerLocation nextLocationId gs // player has the required item, proceed to next location
                         match Map.tryFind nextLocationId gs.Locations with
                         | Some nextLoc -> 
@@ -271,7 +271,7 @@ let handleExamine (targetNameFromInput: string) (gs: GameState) : Result<GameSta
             // examine an Item in the player's inventory
             let inventoryItemOpt =
                 gs.Player.Inventory
-                |> List.tryFind (fun item -> item.Name.ToLower() = normalizedTarget)
+                |> Seq.tryFind (fun item -> item.Name.ToLower() = normalizedTarget)
 
             match inventoryItemOpt with
             | Some invItem ->

@@ -17,10 +17,10 @@ let updatePlayerLocation (newLocationId: string) (gs: GameState) : GameState =
     { gs with Player = { gs.Player with CurrentLocationId = newLocationId } }
 
 let addItemInventory (newItem: Item) (gs: GameState): GameState=
-    {gs with Player = {  gs.Player with Inventory = newItem :: gs.Player.Inventory} }
+   {gs with Player = {  gs.Player with Inventory = Set.add newItem gs.Player.Inventory} }
 
 let deleteItemInventory (itemId: string) (gs: GameState): GameState =
-    let updatedInventory = gs.Player.Inventory |> List.filter (fun invItem -> invItem.Id <> itemId)
+    let updatedInventory = gs.Player.Inventory |> Set.filter (fun invItem -> invItem.Id <> itemId)
     { gs with Player = { gs.Player with Inventory = updatedInventory } }
 
 //location state updates-----

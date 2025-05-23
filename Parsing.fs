@@ -47,7 +47,7 @@ let parsePlayerInput (playersInput: string) : Command =
     | "take" :: itemNameParts -> // "take weatheredLogPose" -> itemNameParts = ["weathered"; "LogPose"]
         let itemName = String.concat " " itemNameParts
         if String.IsNullOrWhiteSpace(itemName) then
-            InvalidCommand playersInput // Player typed "take" with nothing after it
+            InvalidCommand playersInput // player typed "take" with nothing after it
         else
             Take itemName
 
